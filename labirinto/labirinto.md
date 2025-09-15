@@ -1,8 +1,8 @@
-# Exercício Laberinto em Prolog
+# Exercício Labirinto em Prolog
 
 A missão aqui é implementar um programa em Prolog que resolva um labirinto. O labirinto é representado por uma grade de células, onde algumas células são livres e outras são paredes. O objetivo é encontrar um caminho do ponto inicial ao ponto final, movendo-se apenas para células livres.
 
-![](/laberinto/laberinto.png)
+![](/labirinto/labirinto.png)
 
 
 ## Saída
