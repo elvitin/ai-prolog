@@ -5,6 +5,31 @@ livre(pos(3,1)). livre(pos(3,2)). livre(pos(3,3)). livre(pos(3,5)).
 livre(pos(4,1)). livre(pos(4,5)).
 livre(pos(5,2)). livre(pos(5,3)). livre(pos(5,4)). livre(pos(5,5)).
 
+
+inverter_lista_([], Acc, Acc).  % Lista vazia
+inverter_lista_([H | T], Acc, Invertida) :- inverter_lista_(T, [H | Acc], Invertida).
+inverter_lista(Lista, Invertida) :- inverter_lista_(Lista, [], Invertida).
+
+
+pode_ir(pos(L, C), NPos) :- L > 1, K is L - 1, NPos = pos(K, C).
+pode_ir(pos(L, C), NPos) :- C > 1, K is C - 1, NPos = pos(L, K).
+pode_ir(pos(L, C), NPos) :- L < 5, K is L + 1, NPos = pos(K, C).
+pode_ir(pos(L, C), NPos) :- C < 5, K is C + 1, NPos = pos(L, K).
+
+encontra_caminho_(Pos, Pos, Caminho, Caminho).
+
+encontra_caminho_(Pos, PosFinal, Cam, CamFinal) :-
+    pode_ir(Pos, NPos),
+    livre(NPos),
+    not(member(NPos, Cam)),
+    encontra_caminho_(NPos, PosFinal, [NPos | Cam], CamFinal).
+
+
+encontra_caminho(PosInicio, PosFinal, CaminhoFinal) :-
+    encontra_caminho_(PosInicio, PosFinal, [PosInicio], CaminhoFinal_), !, inverter_lista(CaminhoFinal_, CaminhoFinal).
+
+%%%%% VERSÃO ANTIGA
+/*
 % andar em N/S/L/O
 % ?- encontra_caminho(pos(1,1), pos(5,5), CaminhoFinal).
 
@@ -28,3 +53,4 @@ encontra_caminho_(pos(L, C), PosFinal, Cam, CamFinal) :-
 
 encontra_caminho(PosInicio, PosFinal, CaminhoFinal) :-
     encontra_caminho_(PosInicio, PosFinal, [PosInicio], CaminhoFinal_), !, inverter_lista(CaminhoFinal_, CaminhoFinal).
+*/
